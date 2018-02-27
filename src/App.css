@@ -1,0 +1,68 @@
+.root {
+  padding: 10px;
+}
+
+.category-box {
+  background-color: lightgrey;
+  padding: 10px;
+}
+
+.category-title {
+  text-align: center;
+  font-size: 20px;
+}
+
+.category {
+  padding: 5px;
+  display: inline;
+}
+
+.selected {
+  background-color: yellow;
+}
+
+.posts-title {
+  text-align: center;
+  font-size: 18px;
+}
+
+.post {
+  background-color: lightgrey;
+  margin: 10px;
+  padding: 10px;
+}
+
+.icon {
+  height: 20px;
+  display: inline;
+  padding: 5px;
+}
+
+.add-post {
+  width: 500px;
+}
+
+.post-form {
+  display: grid;
+}
+
+.post-form label{
+  float: left;
+  margin-bottom: 10px;
+}
+
+.post-form input{
+  float: right;
+  width: 400px
+}
+
+.submit-button {
+  width: 250px !important;
+  margin-left: 25%;
+}
+
+.comment {
+  background-color: lightgrey;
+  margin: 10px;
+  padding: 10px;
+}
