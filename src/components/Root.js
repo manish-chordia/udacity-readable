@@ -8,8 +8,8 @@ import Post from './Post';
 
 class Root extends React.Component {
     componentDidMount() {
-        this.props.getAllCategories();
-        this.props.getAllPosts();
+        this.props.getAllCategories()
+            .then(() => this.props.getAllPosts());
     }
 
     onFilterSelect = (filter) => {

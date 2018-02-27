@@ -34,7 +34,8 @@ class AddPost extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         if(this.props.id) {
-            this.props.editAPost(this.props.id, {title: this.state.title, body: this.state.body});
+            this.props.editAPost(this.props.id, {title: this.state.title, body: this.state.body})
+                .then(() => window.history.back())
         }
         else {
             if(this.state.category === "") {
@@ -49,10 +50,8 @@ class AddPost extends React.Component {
                     category: this.state.category,
                     id: timeStamp.toString(),
                     timestamp: timeStamp
-                });
-                setTimeout(() => {
-                    window.history.back();
-                }, 300)
+                })
+                    .then(() => window.history.back());
             }
         }
     }

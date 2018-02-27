@@ -34,7 +34,7 @@ const saveCategories = (categories) => {
 
 export const getAllCategories = () => {
 	return (dispatch) => {
-		getCategories()
+		return getCategories()
 			.then(categories => dispatch(saveCategories(categories)))
 	};
 };
@@ -68,7 +68,7 @@ const editedPost = (post) => ({type: EDIT_POST, data: post});
 
 export const editAPost = (id, body) => {
 	return (dispatch) => {
-		editPost(id, body)
+		return editPost(id, body)
 			.then(post => dispatch(editedPost(post)))
 	}
 };
@@ -78,7 +78,7 @@ const addpost = (post) => ({type: ADD_POST, data: post});
 
 export const addNewPost = (body) => {
 	return (dispatch) => {
-		addANewPost(body)
+		return addANewPost(body)
 			.then(post => dispatch(addpost(post)))
 	}
 };
