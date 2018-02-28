@@ -12,6 +12,8 @@ import {
 import {connect} from "react-redux";
 import Post from '../components/Post';
 import Comment from "./Comment";
+import {Link} from "react-router-dom";
+import {getPostById} from "../reducers/postReducer";
 
 class PostDetails extends React.Component {
 	constructor(props) {
@@ -78,54 +80,60 @@ class PostDetails extends React.Component {
 
     render() {
 		const {post, comments} = this.props;
-        return(
-        	<div>
-				<div>In Post Details view</div>
-				{post && (post.deleted || !post.id)
-					? <div>This post is deleted</div>
-					: <Post
+		if(!post || (post && post.deleted)) {
+			return(
+				<h1>404! post not found</h1>
+			);
+		}
+		else {
+            return(
+				<div>
+					<Link to={'/'}>Go to home</Link>
+					<div>In Post Details view</div>
+					<Post
 						post={post}
 						isDetailedPost={true}
 						upVote={() => this.props.votePost(post.id, 'upVote')}
 						downVote={() => this.props.votePost(post.id, 'downVote')}
 						deletePost={() => this.props.deletePost(post.id)}
-					/>}
+					/>
 					<div className='new-comment'>
 						Add new comment
 						<form onSubmit={this.addNewComment}>
-		                    <label>
-		                        Body:
-		                        <input required={true} type='text' value={this.state.commentText} onChange={(e) => this.handleChange(e.target.value, 'text')}/>
-		                    </label>
-		                    <label>
-		                        Author:
-		                        <input required={true} type='text' value={this.state.commentAuthor} onChange={(e) => this.handleChange(e.target.value, 'author')}/>
-		                    </label>
-		                    <input type='submit' value='Submit'/>
-		                </form>
+							<label>
+								Body:
+								<input required={true} type='text' value={this.state.commentText} onChange={(e) => this.handleChange(e.target.value, 'text')}/>
+							</label>
+							<label>
+								Author:
+								<input required={true} type='text' value={this.state.commentAuthor} onChange={(e) => this.handleChange(e.target.value, 'author')}/>
+							</label>
+							<input type='submit' value='Submit'/>
+						</form>
 					</div>
 					<h1>Comments</h1>
 					<div className='comments'>
-	                    {comments && comments.map((comment) => (
+                        {comments && comments.map((comment) => (
 							<Comment key={comment.id}
-								comment={comment}
-								upVote={() => this.props.voteCommentAction(comment.id, 'upVote')}
-								downVote={() => this.props.voteCommentAction(comment.id, 'downVote')}
-								deleteComment={() => this.props.deleteCommentAction(comment.id)}
-								editComment = {() => this.editComment(comment.id)}
-								isBeingEdited= {this.state.postBeingEdited === comment.id}
-								onEditComment={(id, comment) => this.onEditComment(id, comment)}
+									 comment={comment}
+									 upVote={() => this.props.voteCommentAction(comment.id, 'upVote')}
+									 downVote={() => this.props.voteCommentAction(comment.id, 'downVote')}
+									 deleteComment={() => this.props.deleteCommentAction(comment.id)}
+									 editComment = {() => this.editComment(comment.id)}
+									 isBeingEdited= {this.state.postBeingEdited === comment.id}
+									 onEditComment={(id, comment) => this.onEditComment(id, comment)}
 							/>
-						))}
+                        ))}
 					</div>
-			</div>
-        );
+				</div>
+            );
+		}
     }
 }
 
 export default connect(
 	(state, ownProps) => ({
-        post: state.postDetailsReducer.post,
+        post: getPostById(state.postReducer.posts, ownProps.id),
 		comments: state.postDetailsReducer.comments
 	}),
 	{

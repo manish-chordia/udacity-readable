@@ -1,6 +1,7 @@
 import React from 'react';
 import {editAPost, addNewPost, getPost} from '../actions/ReadableActions';
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 class AddPost extends React.Component {
     constructor(props) {
@@ -78,6 +79,7 @@ class AddPost extends React.Component {
     render () {
         return (
             <div className='add-post'>
+                <Link to={'/'}>Go to home</Link>
                 {this.props.id
                     ? <h1>Edit your post</h1>
                     : <h1>Add a new Post</h1>

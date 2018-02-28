@@ -34,6 +34,12 @@ export const filterByCategory = (posts, category) => {
 	return category ? posts.filter(post => (post.category === category)) : posts;
 };
 
+export const getPostById = (posts, id) => {
+	return posts.find(post => (
+		post.id === id
+	))
+};
+
 export default (state = INIT_STATE, action) => {
 	switch(action.type){
 		case SAVE_CATEGORIES:
