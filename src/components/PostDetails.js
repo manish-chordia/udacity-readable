@@ -13,7 +13,6 @@ import {connect} from "react-redux";
 import Post from '../components/Post';
 import Comment from "./Comment";
 import {Link} from "react-router-dom";
-import {getPostById} from "../reducers/postReducer";
 
 class PostDetails extends React.Component {
 	constructor(props) {
@@ -80,9 +79,12 @@ class PostDetails extends React.Component {
 
     render() {
 		const {post, comments} = this.props;
-		if(!post || (post && post.deleted)) {
+		if(!post || (post && !post.id) || (post && post.deleted)) {
 			return(
-				<h1>404! post not found</h1>
+				<div>
+					<Link to={'/'}>Go to home</Link>
+					<h1>404! post not found</h1>
+				</div>
 			);
 		}
 		else {
@@ -133,7 +135,7 @@ class PostDetails extends React.Component {
 
 export default connect(
 	(state, ownProps) => ({
-        post: getPostById(state.postReducer.posts, ownProps.id),
+        post: state.postDetailsReducer.post,
 		comments: state.postDetailsReducer.comments
 	}),
 	{
